@@ -12,7 +12,7 @@ function defineAbilityFor(user) {
 }
 
 function defineRulesFor(user) {
-  const { rules, can } = AbilityBuilder.extract();
+  const { rules, can } = new AbilityBuilder();
 
   switch (user.role) {
     case 'admin':
