@@ -1,4 +1,4 @@
-const { AbilityBuilder, Ability } = require('@casl/ability');
+const { AbilityBuilder, Ability } = require("@casl/ability");
 
 let ANONYMOUS_ABILITY;
 
@@ -15,10 +15,10 @@ function defineRulesFor(user) {
   const { rules, can } = new AbilityBuilder();
 
   switch (user.role) {
-    case 'admin':
+    case "admin":
       defineAdminRules(user, can);
       break;
-    case 'writer':
+    case "writer":
       defineWriterRules(user, can);
       break;
     default:
@@ -30,22 +30,22 @@ function defineRulesFor(user) {
 }
 
 function defineAdminRules(_, can) {
-  can('manage', 'all');
+  can("manage", "all");
 }
 
 function defineWriterRules(user, can) {
   defineAnonymousRules(user, can);
 
-  can(['read', 'create', 'delete', 'update'], ['Article', 'Comment'], { author: user._id });
-  can('publish', 'Article', { author: user._id, published: false });
-  can(['read', 'update'], 'User', { _id: user._id });
+  can(["read", "create", "delete", "update"], ["Article", "Comment"], { author: user._id });
+  can("publish", "Article", { author: user._id, published: false });
+  can(["read", "update"], "User", { _id: user._id });
 }
 
 function defineAnonymousRules(_, can) {
-  can('read', ['Article', 'Comment'], { published: true });
+  can("read", ["Article", "Comment"], { published: true });
 }
 
 module.exports = {
   defineRulesFor,
-  defineAbilityFor,
+  defineAbilityFor
 };
