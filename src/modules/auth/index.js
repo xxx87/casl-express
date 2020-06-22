@@ -16,6 +16,7 @@ module.exports = {
     router.use(passport.initialize());
     router.use(passport.authenticate('jwt', { session: false, failWithError: true }));
     router.use((req, _, next) => {
+      console.log('REQ USER ===> ', req.user);
       req.ability = defineAbilityFor(req.user);
       next();
     });
